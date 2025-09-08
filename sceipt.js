@@ -1,6 +1,6 @@
-import { relayInit } from "https://esm.sh/nostr-tools";
+const { relayInit } = window["nostr-tools"];  // グローバルから取得
 
-let scenario = {}; // 外部JSON読み込み
+let scenario = {};
 let pubkey = null;
 let relay = relayInit("wss://relay.damus.io");
 await relay.connect();
@@ -14,14 +14,12 @@ function log(msg) {
   logEl.innerText += msg + "\n";
 }
 
-// JSONロード
 async function loadScenario() {
   const res = await fetch("scenario.json");
   scenario = await res.json();
   log("シナリオ読み込み完了");
 }
 
-// NIP-07 ログイン
 async function login() {
   try {
     if (!window.nostr) throw new Error("NIP-07 拡張が見つかりません");
@@ -35,12 +33,10 @@ async function login() {
   }
 }
 
-// ゲーム開始
 function startGame() {
   showScene("start");
 }
 
-// シーン表示
 function showScene(id) {
   const scene = scenario[id];
   textEl.innerText = scene.text;
@@ -60,7 +56,6 @@ function showScene(id) {
   });
 }
 
-// 結果送信
 async function sendResult(ending) {
   const event = {
     kind: 1,
@@ -75,5 +70,5 @@ async function sendResult(ending) {
   log("送信完了: " + JSON.stringify(signed));
 }
 
-// ボタンにイベントを付与
 loginBtn.addEventListener("click", login);
+
