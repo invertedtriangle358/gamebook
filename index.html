@@ -81,22 +81,24 @@
       });
     }
 
-    // 結果送信
-    async function sendResult(ending) {
-      const event = {
-        kind: 1,
-        created_at: Math.floor(Date.now() / 1000),
-        tags: [],
-        content: JSON.stringify({ ending }),
-        pubkey
-      };
-      const signed = await window.nostr.signEvent(event);
-      relay.publish(signed);
-      textEl.innerText += `\n\n[${ending} エンディング結果を送信しました]`;
-      log("送信完了: " + JSON.stringify(signed));
-    }
+// 結果送信
+async function sendResult(ending) {
+  const event = {
+    kind: 1,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [],
+    content: JSON.stringify({ ending }),
+    pubkey
+  };
+  const signed = await window.nostr.signEvent(event);
+  relay.publish(signed);
+  textEl.innerText += `\n\n[${ending} エンディング結果を送信しました]`;
+  log("送信完了: " + JSON.stringify(signed));
+}
 
-    window.login = login;
+// 👇 これを忘れると onclick から呼べない
+window.login = login;
+
   </script>
 </body>
 </html>
