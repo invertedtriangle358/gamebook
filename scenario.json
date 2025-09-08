@@ -1,0 +1,17 @@
+{
+  "start": {
+    "text": "あなたは森に立っている。進みますか？",
+    "choices": [
+      { "label": "進む", "next": "forest" },
+      { "label": "戻る", "next": "end_bad" }
+    ]
+  },
+  "forest": {
+    "text": "光を見つけた！ハッピーエンド！",
+    "end": "good"
+  },
+  "end_bad": {
+    "text": "森を去った…バッドエンド。",
+    "end": "bad"
+  }
+}
