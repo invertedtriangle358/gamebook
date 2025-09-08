@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Nostr ノベルゲーム JSON分離版</title>
+  <style>
+    body { font-family: sans-serif; background: #222; color: #eee; text-align: center; }
+    #game { max-width: 600px; margin: 50px auto; padding: 20px; background: #333; border-radius: 12px; }
+    #text { margin: 20px 0; min-height: 100px; white-space: pre-wrap; }
+    .choice { display: block; margin: 10px auto; padding: 10px; background: #555; border-radius: 8px; cursor: pointer; }
+    .choice:hover { background: #666; }
+    #log { margin-top: 20px; font-size: 0.8em; color: #aaa; text-align: left; }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h1>ノベルゲーム（JSON分離サンプル）</h1>
+    <div id="text">🔑 Nostrでログインしてください。</div>
+    <div id="choices"></div>
+    <button onclick="login()">Nostrでログイン</button>
+    <div id="log"></div>
+  </div>
+
+  <script type="module">
+    import { relayInit } from "https://esm.sh/nostr-tools";
+
+    let scenario = {}; // 外部JSON読み込み
+    let pubkey = null;
+    let relay = relayInit("wss://relay.damus.io");
+    await relay.connect();
+
+    const textEl = document.getElementById("text");
+    const choicesEl = document.getElementById("choices");
+    const logEl = document.getElementById("log");
+
+    function log(msg) {
+      logEl.innerText += msg + "\n";
+    }
+
+    // JSONロード
+    async function loadScenario() {
+      const res = await fetch("scenario.json");
+      scenario = await res.json();
+      log("シナリオ読み込み完了");
+    }
+
+    // NIP-07 ログイン
+    async function login() {
+      try {
+        pubkey = await window.nostr.getPublicKey();
+        log("ログイン成功: " + pubkey);
+        await loadScenario();
+        startGame();
+      } catch (e) {
+        alert("NIP-07 対応拡張が必要です");
+      }
+    }
+
+    // ゲーム開始
+    function startGame() {
+      showScene("start");
+    }
+
+    // シーン表示
+    function showScene(id) {
+      const scene = scenario[id];
+      textEl.innerText = scene.text;
+      choicesEl.innerHTML = "";
+
+      if (scene.end) {
+        sendResult(scene.end);
+        return;
+      }
+
+      scene.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.innerText = choice.label;
+        btn.className = "choice";
+        btn.onclick = () => showScene(choice.next);
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    // 結果送信
+    async function sendResult(ending) {
+      const event = {
+        kind: 1,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: [],
+        content: JSON.stringify({ ending }),
+        pubkey
+      };
+      const signed = await window.nostr.signEvent(event);
+      relay.publish(signed);
+      textEl.innerText += `\n\n[${ending} エンディング結果を送信しました]`;
+      log("送信完了: " + JSON.stringify(signed));
+    }
+
+    window.login = login;
+  </script>
+</body>
+</html>
