@@ -1,7 +1,12 @@
 const { relayInit } = window.NostrTools;
 
 let scenario = {};
-let relays = [];
+let relays = [
+    "wss://relay-jp.nostr.wirednet.jp",
+    "wss://yabu.me",
+    "wss://r.kojira.io",
+    "wss://relay.barine.co",
+];
 let textEl, choicesEl, logEl;
 
 function log(msg) {
