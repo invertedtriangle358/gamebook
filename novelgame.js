@@ -2,13 +2,14 @@ const { relayInit } = window.NostrTools;
 
 let scenario = {};
 let pubkey = null;
-let relay;
+let relays = [];
 let textEl, choicesEl, logEl, loginBtn;
 
 function log(msg) {
   const timestamp = new Date().toLocaleTimeString();
   logEl.innerText += `[${timestamp}] ${msg}\n`;
 }
+
 
 async function init() {
   textEl = document.getElementById("text");
@@ -17,6 +18,9 @@ async function init() {
   loginBtn = document.getElementById("loginBtn");
 
   loginBtn.addEventListener("click", login);
+
+  await initRelays();   // ✅ 複数リレー初期化
+}
 
   try {
     relay = relayInit("wss://relay.damus.io");
@@ -82,6 +86,7 @@ function showScene(id) {
   });
 }
 
+
 async function sendResult(ending) {
   try {
     const event = {
@@ -93,13 +98,14 @@ async function sendResult(ending) {
     };
 
     const signed = await window.nostr.signEvent(event);
-    relay.publish(signed);
 
-    textEl.innerText += `\n\n[${ending} エンディング結果を送信しました]`;
-    log("送信完了: " + JSON.stringify(signed));
+    for (const r of relays) {
+      r.publish(signed);
+      log(`送信完了: ${r.url}`);
+    }
+
+    textEl.innerText += `\n\n[${ending} エンディング結果を ${relays.length} リレーに送信しました]`;
   } catch (e) {
     log("送信失敗: " + e.message);
   }
 }
-
-window.addEventListener("DOMContentLoaded", init);
