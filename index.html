@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Nostr ノベルゲーム UMD版</title>
+  <title>シンプルNostrノベルゲーム</title>
   <style>
     body { font-family: sans-serif; background: #222; color: #eee; text-align: center; }
     #game { max-width: 600px; margin: 50px auto; padding: 20px; background: #333; border-radius: 12px; }
@@ -14,14 +14,13 @@
 </head>
 <body>
   <div id="game">
-    <h1>ノベルゲーム（UMD版）</h1>
-    <div id="text">🔑 Nostrでログインしてください。</div>
+    <h1>シンプルNostrノベルゲーム</h1>
+    <div id="text">ゲーム開始前です。</div>
     <div id="choices"></div>
-    <button id="loginBtn">スタート</button>
     <div id="log"></div>
   </div>
 
-  <!-- ✅ UMD版 nostr-tools を読み込み -->
+  <!-- Nostr署名用に拡張が必要 -->
   <script src="https://unpkg.com/nostr-tools@1.17.0/lib/nostr.bundle.js"></script>
   <script src="novelgame.js"></script>
 </body>
