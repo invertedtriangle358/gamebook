@@ -24,8 +24,9 @@ async function init() {
 
   loginBtn.addEventListener("click", login);
 
-  await initRelays();   // ✅ 複数リレー初期化
+  initRelays();   // ← await を外す（非同期で進めてOK）
 }
+
 
   try {
     relay = relayInit("wss://relay.damus.io");
