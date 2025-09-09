@@ -2,7 +2,12 @@ const { relayInit } = window.NostrTools;
 
 let scenario = {};
 let pubkey = null;
-let relays = [];
+let relays = [
+  "wss://relay.damus.io",
+  "wss://r.kojila.io",
+  "wss://relay-jp.nostr.wirednet.jp"
+  "wss://relay.barine.co",
+];
 let textEl, choicesEl, logEl, loginBtn;
 
 function log(msg) {
