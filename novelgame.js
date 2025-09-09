@@ -1,17 +1,24 @@
-const { relayInit } = window["nostr-tools"];  // グローバルから取得
+const { relayInit } = window["nostr-tools"];
 
 let scenario = {};
 let pubkey = null;
-let relay = relayInit("wss://relay.damus.io");
-await relay.connect();
-
-const textEl = document.getElementById("text");
-const choicesEl = document.getElementById("choices");
-const logEl = document.getElementById("log");
-const loginBtn = document.getElementById("loginBtn");
+let relay;
+let textEl, choicesEl, logEl, loginBtn;
 
 function log(msg) {
   logEl.innerText += msg + "\n";
+}
+
+async function init() {
+  relay = relayInit("wss://relay.damus.io");
+  await relay.connect();
+
+  textEl = document.getElementById("text");
+  choicesEl = document.getElementById("choices");
+  logEl = document.getElementById("log");
+  loginBtn = document.getElementById("loginBtn");
+
+  loginBtn.addEventListener("click", login);
 }
 
 async function loadScenario() {
@@ -22,7 +29,7 @@ async function loadScenario() {
 
 async function login() {
   try {
-    if (!window.nostr) throw new Error("NIP-07 拡張が見つかりません");
+    if (!window.nostr) throw new Error("NIP-07 拡張が見つかりません（Albyなどを導入してください）");
     pubkey = await window.nostr.getPublicKey();
     log("ログイン成功: " + pubkey);
     await loadScenario();
@@ -70,5 +77,6 @@ async function sendResult(ending) {
   log("送信完了: " + JSON.stringify(signed));
 }
 
-loginBtn.addEventListener("click", login);
+// ページ読み込み後に初期化
+window.addEventListener("DOMContentLoaded", init);
 
