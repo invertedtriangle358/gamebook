@@ -1,20 +1,15 @@
-import { relayInit } from "https://cdn.jsdelivr.net/npm/nostr-tools@2.7.2/+esm";
+const { relayInit } = window.NostrTools;
 
-// --- グローバル状態 ---
 let scenario = {};
 let pubkey = null;
-let relay = null;
-
-// DOM要素キャッシュ
+let relay;
 let textEl, choicesEl, logEl, loginBtn;
 
-// --- ユーティリティ ---
 function log(msg) {
   const timestamp = new Date().toLocaleTimeString();
   logEl.innerText += `[${timestamp}] ${msg}\n`;
 }
 
-// --- 初期化処理 ---
 async function init() {
   textEl = document.getElementById("text");
   choicesEl = document.getElementById("choices");
@@ -32,7 +27,6 @@ async function init() {
   }
 }
 
-// --- シナリオロード ---
 async function loadScenario() {
   try {
     const res = await fetch("scenario.json");
@@ -43,7 +37,6 @@ async function loadScenario() {
   }
 }
 
-// --- Nostrログイン ---
 async function login() {
   if (!window.nostr) {
     alert("NIP-07 拡張が見つかりません（Albyなどを導入してください）");
@@ -61,12 +54,10 @@ async function login() {
   }
 }
 
-// --- ゲーム開始 ---
 function startGame() {
   showScene("start");
 }
 
-// --- シーン描画 ---
 function showScene(id) {
   const scene = scenario[id];
   if (!scene) {
@@ -91,7 +82,6 @@ function showScene(id) {
   });
 }
 
-// --- プレイ結果送信 ---
 async function sendResult(ending) {
   try {
     const event = {
@@ -112,5 +102,4 @@ async function sendResult(ending) {
   }
 }
 
-// --- DOM読み込み後に実行 ---
 window.addEventListener("DOMContentLoaded", init);
