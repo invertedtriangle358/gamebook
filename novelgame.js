@@ -1,4 +1,4 @@
-const { relayInit } = window["nostr-tools"];
+import { relayInit } from "https://cdn.jsdelivr.net/npm/nostr-tools@2.7.2/lib/relay.js";
 
 let scenario = {};
 let pubkey = null;
@@ -10,6 +10,7 @@ function log(msg) {
 }
 
 async function init() {
+  // relay初期化
   relay = relayInit("wss://relay.damus.io");
   await relay.connect();
 
@@ -19,6 +20,8 @@ async function init() {
   loginBtn = document.getElementById("loginBtn");
 
   loginBtn.addEventListener("click", login);
+
+  log("リレー接続完了");
 }
 
 async function loadScenario() {
@@ -77,6 +80,5 @@ async function sendResult(ending) {
   log("送信完了: " + JSON.stringify(signed));
 }
 
-// ページ読み込み後に初期化
+// DOM読み込み後に初期化
 window.addEventListener("DOMContentLoaded", init);
-
