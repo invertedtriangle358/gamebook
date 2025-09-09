@@ -1,5 +1,6 @@
 import { relayInit } from "https://cdn.jsdelivr.net/npm/nostr-tools@2.7.2/lib/relay.js";
 
+
 let scenario = {};
 let pubkey = null;
 let relay;
