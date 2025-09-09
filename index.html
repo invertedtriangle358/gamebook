@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Nostr ノベルゲーム（仮・修正版）</title>
+  <title>Nostr ノベルゲーム ESM版</title>
   <style>
     body { font-family: sans-serif; background: #222; color: #eee; text-align: center; }
     #game { max-width: 600px; margin: 50px auto; padding: 20px; background: #333; border-radius: 12px; }
@@ -14,16 +14,14 @@
 </head>
 <body>
   <div id="game">
-    <h1>ノベルゲーム</h1>
+    <h1>ノベルゲーム（ESM版）</h1>
     <div id="text">🔑 Nostrでログインしてください。</div>
     <div id="choices"></div>
     <button id="loginBtn">Nostrでログイン</button>
     <div id="log"></div>
   </div>
 
-  <!-- nostr-tools の UMD バンドル -->
-  <script src="https://cdn.jsdelivr.net/npm/[email protected]/lib/nostr.bundle.min.js"></script>
-  <!-- 外部スクリプト読み込み -->
-  <script src="novelgame.js"></script>
+  <!-- モジュールスクリプト -->
+  <script type="module" src="novelgame.js"></script>
 </body>
 </html>
