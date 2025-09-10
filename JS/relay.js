@@ -1,7 +1,8 @@
+// JS/relay.js
 import { log } from "./logger.js";
 const { relayInit } = window.NostrTools;
 
-let relays = [];
+let relays = []; // 接続済みリレーオブジェクト格納
 const relayUrls = [
   "wss://relay.damus.io",
   "wss://relay-jp.nostr.wirednet.jp",
@@ -12,7 +13,7 @@ const relayUrls = [
 
 // --- リレー接続 ---
 export async function connectRelays(logEl) {
-  const results = []; // 接続結果を格納
+  const results = [];
   const total = relayUrls.length;
 
   for (const url of relayUrls) {
@@ -25,8 +26,8 @@ export async function connectRelays(logEl) {
       const errMsg = (e && e.message) ? e.message : String(e);
       results.push(`❌ ${url} (${errMsg})`);
     }
+  }
 
-  // 1行にまとめて表示
   const successCount = results.filter(r => r.startsWith("✅")).length;
   const failCount = results.filter(r => r.startsWith("❌")).length;
 
@@ -54,10 +55,11 @@ export async function sendResultSimple(endingId, logEl) {
     for (const r of relays) {
       r.publish(signed)
         .then(() => log(`✅ 送信成功: ${r.url}`, logEl))
-        .catch((reason) => log(`❌ 送信失敗: ${r.url} (${reason})`, logEl));
+        .catch(reason => log(`❌ 送信失敗: ${r.url} (${reason})`, logEl));
     }
   } catch (e) {
-    log("署名送信失敗: " + e.message, logEl);
+    const errMsg = (e && e.message) ? e.message : String(e);
+    log("署名送信失敗: " + errMsg, logEl);
   }
 }
 
@@ -82,13 +84,18 @@ export async function loadMyLogs(logEl) {
     ]);
 
     sub.on("event", ev => {
-      const endingTag = ev.tags.find(tag => tag[0] === "ending");
-      if (!endingTag) return;
-      const endingId = endingTag[1];
+      try {
+        const endingTag = ev.tags.find(tag => tag[0] === "ending");
+        if (!endingTag) return;
+        const endingId = endingTag[1];
 
-      if (!seenEndings.has(endingId)) {
-        seenEndings.add(endingId);
-        log(`📜 クリア済み: ${endingId}`, logEl);
+        if (!seenEndings.has(endingId)) {
+          seenEndings.add(endingId);
+          log(`📜 クリア済み: ${endingId}`, logEl);
+        }
+      } catch (e) {
+        const errMsg = (e && e.message) ? e.message : String(e);
+        log("ログ解析失敗: " + errMsg, logEl);
       }
     });
 
