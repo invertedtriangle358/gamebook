@@ -98,10 +98,13 @@ async function sendResultSimple(endingId) {
     console.log("署名済みイベント:", signed);
 
     for (const r of relays) {
-      const pub = r.publish(signed);
-
-      pub.on("ok", () => log(`✅ 送信成功: ${r.url}`));
-      pub.on("failed", (reason) => log(`❌ 送信失敗: ${r.url} (${reason})`));
+      r.publish(signed)
+        .then(() => {
+          log(`✅ 送信成功: ${r.url}`);
+        })
+        .catch((reason) => {
+          log(`❌ 送信失敗: ${r.url} (${reason})`);
+        });
     }
   } catch (e) {
     console.error("署名送信失敗:", e);
