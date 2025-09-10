@@ -1,4 +1,4 @@
-import { log } from "./modules/logger.js";
+import { log } from "./logger.js";
 const { relayInit } = window.NostrTools;
 
 let relays = [];
