@@ -13,30 +13,24 @@ const relayUrls = [
 
 // --- リレー接続 ---
 export async function connectRelays(logEl) {
-  const results = [];
   const total = relayUrls.length;
+  let successCount = 0;
 
   for (const url of relayUrls) {
     try {
       const r = relayInit(url);
       await r.connect();
       relays.push(r);
-      results.push(`✅ ${url}`);
+      successCount++;
     } catch (e) {
-      const errMsg = (e && e.message) ? e.message : String(e);
-      results.push(`❌ ${url} (${errMsg})`);
+      // 失敗はカウントだけでログ出力不要
     }
   }
 
-  const successCount = results.filter(r => r.startsWith("✅")).length;
-  const failCount = results.filter(r => r.startsWith("❌")).length;
-
-  // wss:// を削って表示
-  const displayResults = results.map(r => r.replace(/^✅\s?wss:\/\//, "✅ ").replace(/^❌\s?wss:\/\//, "❌ "));
-
+  const failCount = total - successCount;
   log(`📡 接続結果: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
-  log(`詳細: ${displayResults.join(" | ")}`, logEl);
 }
+
 
 
 // --- クリア結果送信 ---
