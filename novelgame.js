@@ -67,31 +67,27 @@ function showScene(id) {
 }
 
 // --- クリア結果をNostrに送信 ---
-async function sendResult(ending) {
-  textEl.innerText += `\n\n[${ending} エンディング]`;
+async function sendResult(endingId) {
+  const ending = scenario.endings.find(e => e.id === endingId);
+  if (!ending) return;
 
-  if (!window.nostr) {
-    log("Nostr拡張がありません。署名送信はスキップします。");
-    return;
-  }
+  const pubkey = await window.nostr.getPublicKey();
 
-  try {
-    const pubkey = await window.nostr.getPublicKey();
-    const event = {
-      kind: 1,
-      created_at: Math.floor(Date.now()/1000),
-      tags: [],
-      content: JSON.stringify({ ending }),
-      pubkey
-    };
-    const signed = await window.nostr.signEvent(event);
+  const event = {
+    kind: 1,
+    created_at: Math.floor(Date.now()/1000),
+    tags: [["t", "novelgame"], ...ending.tags],
+    content: JSON.stringify({
+      id: ending.id,
+      title: ending.title,
+      description: ending.description
+    }),
+    pubkey
+  };
 
-    for (const r of relays) {
-      r.publish(signed);
-      log(`結果送信完了: ${r.url}`);
-    }
-  } catch(e) {
-    log("署名送信失敗: " + e.message);
+  const signed = await window.nostr.signEvent(event);
+  for (const r of relays) {
+    r.publish(signed);
   }
 }
 
