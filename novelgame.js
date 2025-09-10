@@ -31,16 +31,24 @@ async function loadScenario() {
 
 // --- リレー接続 ---
 async function connectRelays() {
-  for (const url of relayUrls) {
+  let successCount = 0;
+  let failCount = 0;
+  const total = relayUrls.length;
+
+  for (const [i, url] of relayUrls.entries()) {
     try {
       const r = relayInit(url);
       await r.connect();
       relays.push(r);
-      log(`✅ リレー接続成功: ${url}`);
+      successCount++;
+      log(`✅ (${i + 1}/${total}) 接続成功: ${url}`);
     } catch (e) {
-      log(`❌ リレー接続失敗: ${url} (${e.message})`);
+      failCount++;
+      log(`❌ (${i + 1}/${total}) 接続失敗: ${url} (${e.message})`);
     }
   }
+
+  log(`📡 接続完了: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`);
 }
 
 // --- ゲーム開始 ---
