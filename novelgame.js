@@ -119,7 +119,8 @@ async function sendResultSimple(endingId) {
     log("署名送信失敗: " + e.message);
   }
 }
-// --- 自分のログを読み込む ---
+
+// --- 自分のログを読み込む（重複排除） ---
 async function loadMyLogs() {
   if (!window.nostr) {
     log("Nostr拡張がありません。ログ購読はスキップします。");
@@ -127,6 +128,7 @@ async function loadMyLogs() {
   }
 
   const myPubkey = await window.nostr.getPublicKey();
+  const seenEndings = new Set(); // ← ここで重複チェック
 
   relays.forEach(r => {
     const sub = r.sub([
@@ -134,14 +136,21 @@ async function loadMyLogs() {
         kinds: [1],
         authors: [myPubkey],
         "#t": ["novelgame"],
-        limit: 10
+        limit: 50   // 多めにとってもOK
       }
     ]);
 
     sub.on("event", ev => {
       try {
-        const content = ev.content;
-        log(`📜 過去ログ: ${content}`);
+        const endingTag = ev.tags.find(tag => tag[0] === "ending");
+        if (!endingTag) return;
+
+        const endingId = endingTag[1];
+
+        if (!seenEndings.has(endingId)) {
+          seenEndings.add(endingId);
+          log(`📜 クリア済み: ${endingId}`);
+        }
       } catch (e) {
         log("ログ解析失敗: " + e.message);
       }
@@ -153,6 +162,7 @@ async function loadMyLogs() {
     });
   });
 }
+
 
 // --- ページ読み込み時に開始 ---
 window.addEventListener("DOMContentLoaded", async () => {
