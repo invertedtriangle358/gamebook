@@ -1,4 +1,12 @@
 {
+  "start": {
+    "text": "あなたは森に立っています。進みますか？",
+    "choices": [
+      { "label": "進む", "next": "forest" },
+      { "label": "戻る", "next": "end_bad" }
+    ]
+  },
+{
   "endings": [
     {
       "id": "good",
