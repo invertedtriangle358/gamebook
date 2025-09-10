@@ -1,17 +1,16 @@
 {
-  "start": {
-    "text": "あなたは森に立っている。進みますか？",
-    "choices": [
-      { "label": "進む", "next": "forest" },
-      { "label": "戻る", "next": "end_bad" }
-    ]
-  },
-  "forest": {
-    "text": "光を見つけた！ハッピーエンド！",
-    "end": "good"
-  },
-  "end_bad": {
-    "text": "森を去った…バッドエンド。",
-    "end": "bad"
-  }
+  "endings": [
+    {
+      "id": "good",
+      "title": "光を見つけた！ハッピーエンド！",
+      "description": "森を抜けて光にたどり着いた。",
+      "tags": [["ending", "good"]]
+    },
+    {
+      "id": "bad",
+      "title": "森を去った…バッドエンド。",
+      "description": "途中で引き返してしまった。",
+      "tags": [["ending", "bad"]]
+    }
+  ]
 }
