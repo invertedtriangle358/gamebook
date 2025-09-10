@@ -111,6 +111,45 @@ async function sendResultSimple(endingId) {
     log("署名送信失敗: " + e.message);
   }
 }
+// --- 自分のログを読み込む ---
+async function loadMyLogs() {
+  if (!window.nostr) {
+    log("Nostr拡張がありません。ログ購読はスキップします。");
+    return;
+  }
+
+  const myPubkey = await window.nostr.getPublicKey();
+
+  relays.forEach(r => {
+    const sub = r.sub([
+      {
+        kinds: [1],
+        authors: [myPubkey],
+        "#t": ["novelgame"],
+        limit: 10
+      }
+    ]);
+
+    sub.on("event", ev => {
+      try {
+        const content = ev.content;
+        log(`📜 過去ログ: ${content}`);
+      } catch (e) {
+        log("ログ解析失敗: " + e.message);
+      }
+    });
+
+    sub.on("eose", () => {
+      log(`✅ ログ読込完了: ${r.url}`);
+      sub.unsub();
+    });
+  });
+}
 
 // --- ページ読み込み時に開始 ---
 window.addEventListener("DOMContentLoaded", startGame);
+await loadScenario();
+showScene("start");
+
+// プレイ履歴読み込み
+loadMyLogs();
