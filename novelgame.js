@@ -67,31 +67,18 @@ function showScene(id) {
 }
 
 // --- クリア結果をNostrに送信 ---
-async function sendResult(endingId) {
-  const ending = scenario.endings[endingId];
-  if (!ending) {
-    log("エンディング情報が見つかりません: " + endingId);
-    return;
-  }
-
+async function sendResultSimple(endingId) {
   if (!window.nostr) {
     log("Nostr拡張がありません。署名送信はスキップします。");
     return;
   }
 
   try {
-    const pubkey = await window.nostr.getPublicKey();
-
     const event = {
       kind: 1,
       created_at: Math.floor(Date.now() / 1000),
-      tags: [["t", "novelgame"], ...ending.tags],
-      content: JSON.stringify({
-        id: endingId,
-        title: ending.title,
-        description: ending.description
-      }),
-      pubkey
+      tags: [["t", "novelgame"], ["ending", endingId]],
+      content: `ゲーム終了: ${endingId}`
     };
 
     const signed = await window.nostr.signEvent(event);
@@ -107,12 +94,11 @@ async function sendResult(endingId) {
         log(`❌ 送信失敗: ${r.url} (${reason})`);
       });
     }
-
-    textEl.innerText += `\n\n[${ending.title} の結果を送信しました]`;
   } catch (e) {
     log("署名送信失敗: " + e.message);
   }
 }
+
 
 // ページ読み込み時にゲーム開始
 window.addEventListener("DOMContentLoaded", startGame);
