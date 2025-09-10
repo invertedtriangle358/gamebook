@@ -84,7 +84,7 @@ async function sendResult(endingId) {
 
     const event = {
       kind: 1,
-      created_at: Math.floor(Date.now()/1000),
+      created_at: Math.floor(Date.now() / 1000),
       tags: [["t", "novelgame"], ...ending.tags],
       content: JSON.stringify({
         id: endingId,
@@ -97,8 +97,15 @@ async function sendResult(endingId) {
     const signed = await window.nostr.signEvent(event);
 
     for (const r of relays) {
-      r.publish(signed);
-      log(`送信完了: ${r.url}`);
+      const pub = r.publish(signed);
+
+      pub.on("ok", () => {
+        log(`✅ リレーに送信成功: ${r.url}`);
+      });
+
+      pub.on("failed", (reason) => {
+        log(`❌ 送信失敗: ${r.url} (${reason})`);
+      });
     }
 
     textEl.innerText += `\n\n[${ending.title} の結果を送信しました]`;
@@ -106,7 +113,6 @@ async function sendResult(endingId) {
     log("署名送信失敗: " + e.message);
   }
 }
-
 
 // ページ読み込み時にゲーム開始
 window.addEventListener("DOMContentLoaded", startGame);
