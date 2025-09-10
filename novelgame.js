@@ -147,9 +147,7 @@ async function loadMyLogs() {
 }
 
 // --- ページ読み込み時に開始 ---
-window.addEventListener("DOMContentLoaded", startGame);
-await loadScenario();
-showScene("start");
-
-// プレイ履歴読み込み
-loadMyLogs();
+window.addEventListener("DOMContentLoaded", async () => {
+  await startGame();
+  loadMyLogs();
+});
