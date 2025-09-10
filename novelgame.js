@@ -83,6 +83,8 @@ async function sendResultSimple(endingId) {
 
     const signed = await window.nostr.signEvent(event);
 
+    console.log("署名済みイベント:", signed);  // ← ここ追加
+
     for (const r of relays) {
       const pub = r.publish(signed);
 
@@ -95,9 +97,11 @@ async function sendResultSimple(endingId) {
       });
     }
   } catch (e) {
+    console.error("署名送信失敗:", e); // ← ここ追加
     log("署名送信失敗: " + e.message);
   }
 }
+
 
 
 // ページ読み込み時にゲーム開始
