@@ -1,3 +1,3 @@
-# testthegame
+# Nostrゲームブック
 
-Novelgame on the Nostr.
+gamebook by the Nostr.
