@@ -1,3 +1,3 @@
 # Nostrゲームブック
 
-gamebook by the Nostr.
+Gamebook by the Nostr.
