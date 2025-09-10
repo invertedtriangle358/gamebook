@@ -1,5 +1,5 @@
-import { loadScenario, showScene } from "./scenario.js";
-import { connectRelays, loadMyLogs } from "./relay.js";
+import { loadScenario, showScene } from "./modules/scenario.js";
+import { connectRelays, loadMyLogs } from "./modules/relay.js";
 
 let textEl, choicesEl, logEl;
 
