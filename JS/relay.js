@@ -25,7 +25,6 @@ export async function connectRelays(logEl) {
       const errMsg = (e && e.message) ? e.message : String(e);
       results.push(`❌ ${url} (${errMsg})`);
     }
-  }
 
   // 1行にまとめて表示
   const successCount = results.filter(r => r.startsWith("✅")).length;
