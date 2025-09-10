@@ -3,7 +3,7 @@
     "text": "あなたは森の中にいる。進みますか？",
     "choices": [
       { "label": "進む", "next": "forest" },
-      { "label": "戻る", "next": "end_bad" }
+      { "label": "とどまる", "next": "end_bad" }
     ]
   },
   "forest": {
