@@ -12,24 +12,29 @@ const relayUrls = [
 
 // --- リレー接続 ---
 export async function connectRelays(logEl) {
-  let successCount = 0;
-  let failCount = 0;
+  const results = []; // 接続結果を格納
   const total = relayUrls.length;
 
-for (const [i, url] of relayUrls.entries()) {
-  try {
-    const r = relayInit(url);
-    await r.connect();
-    relays.push(r);
-    successCount++;
-    log(`✅ (${i + 1}/${total}) 接続成功: ${url}`, logEl);
-  } catch (e) {
-    failCount++;
-    // 安全に文字列化
-    const errMsg = (e && e.message) ? e.message : String(e);
-    log(`❌ (${i + 1}/${total}) 接続失敗: ${url} (${errMsg})`, logEl);
+  for (const url of relayUrls) {
+    try {
+      const r = relayInit(url);
+      await r.connect();
+      relays.push(r);
+      results.push(`✅ ${url}`);
+    } catch (e) {
+      const errMsg = (e && e.message) ? e.message : String(e);
+      results.push(`❌ ${url} (${errMsg})`);
+    }
   }
+
+  // 1行にまとめて表示
+  const successCount = results.filter(r => r.startsWith("✅")).length;
+  const failCount = results.filter(r => r.startsWith("❌")).length;
+
+  log(`📡 接続結果: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
+  log(`詳細: ${results.join(" | ")}`, logEl);
 }
+
 
 
   log(`📡 接続完了: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
