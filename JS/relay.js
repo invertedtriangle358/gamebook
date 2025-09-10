@@ -12,47 +12,32 @@ const relayUrls = [
 ];
 
 // --- リレー接続 ---
-export async function loadMyLogs(logEl) {
-  if (!window.nostr) {
-    log("Nostr拡張がありません。ログ購読はスキップします。", logEl);
-    return;
+export async function connectRelays(logEl) {
+  const results = [];
+  const total = relayUrls.length;
+
+  for (const url of relayUrls) {
+    try {
+      const r = relayInit(url);
+      await r.connect();
+      relays.push(r);
+      results.push(`✅ ${url}`);
+    } catch (e) {
+      const errMsg = (e && e.message) ? e.message : String(e);
+      results.push(`❌ ${url} (${errMsg})`);
+    }
   }
 
-  const myPubkey = await window.nostr.getPublicKey();
-  const seenEndings = new Set();
-  let completedRelays = 0;
+  const successCount = results.filter(r => r.startsWith("✅")).length;
+  const failCount = results.filter(r => r.startsWith("❌")).length;
 
-  relays.forEach(r => {
-    const sub = r.sub([
-      {
-        kinds: [1],
-        authors: [myPubkey],
-        "#t": ["novelgame"],
-        limit: 50
-      }
-    ]);
+  // wss:// を削って表示
+  const displayResults = results.map(r => r.replace(/^✅\s?wss:\/\//, "✅ ").replace(/^❌\s?wss:\/\//, "❌ "));
 
-    sub.on("event", ev => {
-      const endingTag = ev.tags.find(tag => tag[0] === "ending");
-      if (!endingTag) return;
-      const endingId = endingTag[1];
-
-      if (!seenEndings.has(endingId)) {
-        seenEndings.add(endingId);
-      }
-    });
-
-    sub.on("eose", () => {
-      completedRelays++;
-      sub.unsub();
-
-      // 全リレーが読み終わったら一回だけまとめて表示
-      if (completedRelays === relays.length) {
-        log(`📜 ログ読込完了: ${Array.from(seenEndings).join(", ")}`, logEl);
-      }
-    });
-  });
+  log(`📡 接続結果: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
+  log(`詳細: ${displayResults.join(" | ")}`, logEl);
 }
+
 
 // --- クリア結果送信 ---
 export async function sendResultSimple(endingId, logEl) {
