@@ -35,11 +35,6 @@ export async function connectRelays(logEl) {
   log(`詳細: ${results.join(" | ")}`, logEl);
 }
 
-
-
-  log(`📡 接続完了: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
-}
-
 // --- クリア結果送信 ---
 export async function sendResultSimple(endingId, logEl) {
   if (!window.nostr) {
