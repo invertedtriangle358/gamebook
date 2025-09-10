@@ -16,18 +16,21 @@ export async function connectRelays(logEl) {
   let failCount = 0;
   const total = relayUrls.length;
 
-  for (const [i, url] of relayUrls.entries()) {
-    try {
-      const r = relayInit(url);
-      await r.connect();
-      relays.push(r);
-      successCount++;
-      log(`✅ (${i + 1}/${total}) 接続成功: ${url}`, logEl);
-    } catch (e) {
-      failCount++;
-      log(`❌ (${i + 1}/${total}) 接続失敗: ${url} (${e.message})`, logEl);
-    }
+for (const [i, url] of relayUrls.entries()) {
+  try {
+    const r = relayInit(url);
+    await r.connect();
+    relays.push(r);
+    successCount++;
+    log(`✅ (${i + 1}/${total}) 接続成功: ${url}`, logEl);
+  } catch (e) {
+    failCount++;
+    // 安全に文字列化
+    const errMsg = (e && e.message) ? e.message : String(e);
+    log(`❌ (${i + 1}/${total}) 接続失敗: ${url} (${errMsg})`, logEl);
   }
+}
+
 
   log(`📡 接続完了: 成功 ${successCount}/${total}, 失敗 ${failCount}/${total}`, logEl);
 }
