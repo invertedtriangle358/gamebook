@@ -1,5 +1,5 @@
-import { log } from "./modules/logger.js";
-import { sendResultSimple } from "./modules/relay.js";
+import { log } from "./logger.js";
+import { sendResultSimple } from "./relay.js";
 
 let scenario = {};
 
