@@ -51,6 +51,17 @@ body {
 .choice:hover {
   background: #666;
 }
+.end-choices {
+  display: flex;
+  justify-content: center;
+  gap: 20px;  /* ボタン間の隙間 */
+  margin-top: 20px;
+}
+
+.end-choices .choice {
+  flex: 1;
+  max-width: 150px; /* ボタン幅を制限して横並び感を強調 */
+}
 
 footer {
   text-align: center;
