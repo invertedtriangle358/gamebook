@@ -30,24 +30,30 @@ body {
 }
 
 /* 左カラム：ログ */
+/* 左カラム：ログ */
 #log {
-  flex: 0.45;
+  flex: 0.5;
   background: #111;
-  padding: 20px;
-  border-radius: 12px;
+  padding: 16px;                     /* 内側の余白 */
+  border: 2px solid #0f0;            /* 緑の枠線 */
+  border-radius: 8px;
   overflow-y: auto;
   max-height: 80vh;
   font-size: 0.85em;
+  box-shadow: 0 0 6px #0f0 inset;    /* 少し内側に光る感じ */
 }
 
 /* 右カラム：ゲーム本体 */
 #game {
   flex: 2;
   background: #111;
-  padding: 20px;
-  border-radius: 12px;
+  padding: 16px;                     /* 内側の余白 */
+  border: 2px solid #0f0;            /* 緑の枠線 */
+  border-radius: 8px;
   min-width: 400px;
+  box-shadow: 0 0 6px #0f0 inset;    /* 内側に光を入れる */
 }
+
 
 /* --- 選択肢ボタン --- */
 .choice {
