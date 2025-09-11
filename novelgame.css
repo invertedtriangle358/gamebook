@@ -1,69 +1,73 @@
-body {
-  font-family: sans-serif;
-  background: #222;
-  color: #eee;
-  height: 100vh;
+/* --- リセット --- */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  background: #000;                /* 黒背景 */
+  color: #0f0;                     /* 緑テキスト */
+  font-family: 'Press Start 2P', monospace; /* レトロ風フォント（要Google Fonts） */
+  font-size: 14px;
+  line-height: 1.5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- ゲーム画面全体 --- */
 #container {
   display: flex;
-  max-width: 1200px;
-  width: 100%;
-  height: 550px;
-  margin: 20px auto;
-  gap: 20px;
+  flex-direction: column;
+  width: 800px;
+  height: 600px;
+  border: 4px solid #0f0;
+  padding: 20px;
+  background: #111; /* ゲーム筐体っぽく */
+  box-shadow: 0 0 20px #0f0;
+  overflow: hidden;
 }
 
-/* 左カラム：ログ */
-#log {
-  flex: 0.45;             /* 1倍の幅 */
-  background: #333;
-  padding: 20px;
-  border-radius: 12px;
+/* --- テキストエリア --- */
+#text {
+  flex: 1;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
   overflow-y: auto;
-  max-height: 80vh;
-  font-size: 0.85em;
 }
 
-/* 右カラム：ゲーム本体 */
-#game {
-  flex: 2;             /* 2倍の幅 */
-  background: #333;
-  padding: 20px;
-  border-radius: 12px;
-  min-width: 400px;
+/* --- 選択肢 --- */
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* ボタンのスタイル */
 .choice {
-  display: block;
-  margin: 40px 0;
-  padding: 15px;
-  width: 300px;
-  background: #555;
-  border-radius: 8px;
+  background: transparent;
+  border: 2px solid #0f0;
+  color: #0f0;
+  padding: 10px;
+  font-family: inherit;
   cursor: pointer;
-  color: #fff;
+  transition: all 0.2s;
 }
 
 .choice:hover {
-  background: #666;
-}
-.end-choices {
-  display: flex;
-  justify-content: center;
-  gap: 20px;  /* ボタン間の隙間 */
-  margin-top: 20px;
+  background: #0f0;
+  color: #000;
 }
 
-.end-choices .choice {
-  flex: 1;
-  max-width: 150px; /* ボタン幅を制限して横並び感を強調 */
-}
-
-footer {
-  text-align: center;
+/* --- ログウィンドウ --- */
+#log {
   margin-top: 20px;
+  height: 120px;
+  overflow-y: auto;
+  border-top: 2px solid #0f0;
+  padding-top: 10px;
+  font-size: 12px;
+  color: #0f0;
+  opacity: 0.8;
 }
