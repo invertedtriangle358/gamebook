@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Nostrゲームブック</title>
-    <link rel="stylesheet" href="novelgame.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="novelgame.css" />
 </head>
 <body>
   <div id="container">
     <div id="log"></div>
-<div id="game">
-  <h1>Nostrゲームブック</h1>
-  <button id="startBtn">ゲームスタート</button> <!-- 最初のボタン -->
-  <div id="text" style="display:none;">準備中です。</div>
-  <div id="choices" style="display:none;"></div>
-</div>
+    <div id="game">
+      <h1>Nostrゲームブック</h1>
 
+      <!-- 最初に押すだけのゲームスタートボタン -->
+      <button id="startBtn">ゲームスタート</button>
+
+      <!-- ゲーム本体は最初は非表示 -->
+      <div id="text" style="display:none;">準備中です。</div>
+      <div id="choices" style="display:none;"></div>
     </div>
   </div>
-<footer>
-  <p class="copylight">inverted.triangle358 © 2025</p>
-</footer>
-  <!-- Nostr署名用に拡張が必要 -->
+
+  <footer>
+    <p class="copylight">inverted.triangle358 © 2025</p>
+  </footer>
+
+  <!-- Nostr署名用ライブラリ -->
   <script src="https://unpkg.com/nostr-tools@1.17.0/lib/nostr.bundle.js"></script>
+
+  <!-- ゲーム本体JS -->
   <script type="module" src="./JS/main.js"></script>
 </body>
 </html>
