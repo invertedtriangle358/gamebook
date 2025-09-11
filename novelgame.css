@@ -45,6 +45,24 @@ body {
   flex-direction: column-reverse; /* 新しい要素を上に積む */
   gap: 4px;
 }
+.log-time {
+  color: #fff;   /* 時刻は白 */
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+.log-relay {
+  color: #0af;   /* リレー名は青 */
+  font-weight: bold;
+}
+
+.log-success {
+  color: #0f0;   /* 成功は緑 */
+}
+
+.log-fail {
+  color: #f33;   /* 失敗は赤 */
+}
 
 /* 右カラム：ゲーム本体 */
 #game {
