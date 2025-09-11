@@ -41,6 +41,9 @@ body {
   max-height: 80vh;
   font-size: 0.85em;
   box-shadow: 0 0 6px #0f0 inset;    /* 少し内側に光る感じ */
+  display: flex;
+  flex-direction: column-reverse; /* 新しい要素を上に積む */
+  gap: 4px;
 }
 
 /* 右カラム：ゲーム本体 */
