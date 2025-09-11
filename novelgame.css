@@ -18,7 +18,7 @@ body {
 
 /* 左カラム：ログ */
 #log {
-  flex: 0.55;             /* 1倍の幅 */
+  flex: 0.45;             /* 1倍の幅 */
   background: #333;
   padding: 20px;
   border-radius: 12px;
