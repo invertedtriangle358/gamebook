@@ -1,7 +1,21 @@
 import { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js"; // relay.jsからインポート
 
-function showScene(id, textEl, choicesEl, logEl) {
+let scenario = {}; // シナリオデータ保持用
+
+// --- シナリオ読み込み ---
+export async function loadScenario(logEl) {
+  try {
+    const res = await fetch("./JS/scenario.json"); // パス注意
+    scenario = await res.json();
+    log("シナリオ読み込み完了", logEl);
+  } catch (e) {
+    log("シナリオ読み込み失敗: " + e.message, logEl);
+  }
+}
+
+// --- シーン描画 ---
+export function showScene(id, textEl, choicesEl, logEl) {
   const scene = scenario[id];
   if (!scene) {
     log("不明なシーン: " + id, logEl);
