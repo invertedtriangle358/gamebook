@@ -14,9 +14,34 @@
     ]
   },
   "rightPath": {
-    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ。出口は見つからない…",
-    "end": "caveEnding"
+    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ！\nゴブリンが現れた！戦うか逃げるか？",
+    "choices": [
+      { "label": "戦う", "next": "battle" },
+      { "label": "逃げる", "next": "caveEscape" }
+    ]
   },
+  "battle": {
+    "text": "██████ 戦闘 ██████\n\nゴブリンと戦った…",
+    "choices": [
+      { "label": "勝利した！", "next": "caveVictory" },
+      { "label": "負けた…", "next": "caveDefeat" }
+    ]
+  },
+  "caveEscape": {
+    "text": "██████ 洞窟脱出 ██████\n\n必死に逃げたが森の入口に戻った。",
+    "choices": [
+      { "label": "森の入口に戻る", "next": "start" }
+    ]
+  },
+  "caveVictory": {
+    "text": "██████ ゴブリン撃破 ██████\n\n洞窟の奥で宝箱を発見！冒険は続く…",
+    "end": "treasureEnding"
+  },
+  "caveDefeat": {
+    "text": "██████ 敗北 ██████\n\nゴブリンに敗北した。冒険はここで終わり。",
+    "end": "badEnding"
+  },
+
   "swim": {
     "text": "██████ 小川を渡る ██████\n\n無事に森を脱出し、村に到着した。",
     "choices": [
@@ -56,9 +81,9 @@
     "text": "██████ 森の夜 ██████\n\n森の夜は危険だった。残念ながら冒険はここで終わり。",
     "end": "badEnding"
   },
-  "caveEnding": {
-    "text": "██████ 洞窟 ██████\n\n洞窟から出られず、冒険はここで終わり。",
-    "end": "caveEnding"
+  "treasureEnding": {
+    "text": "██████ 宝箱発見 ██████\n\nゴブリンを倒し、宝箱を手に入れた！",
+    "end": "treasureEnding"
   },
   "victoryEnding": {
     "text": "██████ 勝利 ██████\n\n見事、城に到達し冒険は大成功！",
