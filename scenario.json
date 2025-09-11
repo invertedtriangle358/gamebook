@@ -1,25 +1,71 @@
 {
+  // ────────── スタートシーン ──────────
   "start": {
-    "text": "██████ 森の入口 ██████\n\n暗い森の入口に立っている。\n左右どちらの道を進む？",
+    "text": "██████ 森の入口 ██████\n\n冒険の始まり。左右どちらの道に進む？",
     "choices": [
       { "label": "左の道", "next": "leftPath" },
       { "label": "右の道", "next": "rightPath" }
     ]
   },
+
+  // ────────── 左の道の分岐 ──────────
   "leftPath": {
-    "text": "██████ 左の道 ██████\n\n小川が見えた。泳ぐか橋を探すか？",
+    "text": "██████ 左の道 ██████\n\n小川が見える。どうする？",
     "choices": [
       { "label": "泳いで渡る", "next": "swim" },
       { "label": "橋を探す", "next": "bridge" }
     ]
   },
+
+  "swim": {
+    "text": "██████ 川を泳ぐ ██████\n\n無事に渡れた。",
+    "choices": [
+      { "label": "進む", "next": "forestClearing" }
+    ]
+  },
+
+  "bridge": {
+    "text": "██████ 橋を発見 ██████\n\n橋を渡ると小さな広場に出た。",
+    "choices": [
+      { "label": "探索する", "next": "forestClearing" }
+    ]
+  },
+
+  "forestClearing": {
+    "text": "██████ 森の広場 ██████\n\n光が差し込む静かな場所。宝箱がある。",
+    "choices": [
+      { "label": "宝箱を開ける", "next": "treasure" },
+      { "label": "通り過ぎる", "next": "continuePath" }
+    ]
+  },
+
+  "treasure": {
+    "text": "██████ 宝箱発見 ██████\n\n中には貴重なアイテムが…",
+    "end": "treasureEnding"
+  },
+
+  "continuePath": {
+    "text": "██████ 森の奥 ██████\n\n暗い小道を進む…",
+    "choices": [
+      { "label": "慎重に進む", "next": "caveEntrance" },
+      { "label": "走って進む", "next": "trap" }
+    ]
+  },
+
+  "trap": {
+    "text": "██████ トラップ ██████\n\n足元の罠にかかってしまった…",
+    "end": "badEnding"
+  },
+
+  // ────────── 右の道の分岐（簡単な戦闘） ──────────
   "rightPath": {
-    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ！\nゴブリンが現れた！戦うか逃げるか？",
+    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ！ゴブリンが現れた！",
     "choices": [
       { "label": "戦う", "next": "battle" },
       { "label": "逃げる", "next": "caveEscape" }
     ]
   },
+
   "battle": {
     "text": "██████ 戦闘 ██████\n\nゴブリンと戦った…",
     "choices": [
@@ -27,66 +73,32 @@
       { "label": "負けた…", "next": "caveDefeat" }
     ]
   },
-  "caveEscape": {
-    "text": "██████ 洞窟脱出 ██████\n\n必死に逃げたが森の入口に戻った。",
-    "choices": [
-      { "label": "森の入口に戻る", "next": "start" }
-    ]
-  },
+
   "caveVictory": {
-    "text": "██████ ゴブリン撃破 ██████\n\n洞窟の奥で宝箱を発見！冒険は続く…",
+    "text": "██████ ゴブリン撃破 ██████\n\n洞窟の奥で宝箱を発見！",
     "end": "treasureEnding"
   },
+
   "caveDefeat": {
-    "text": "██████ 敗北 ██████\n\nゴブリンに敗北した。冒険はここで終わり。",
+    "text": "██████ 敗北 ██████\n\nゴブリンに敗北。冒険はここで終了。",
     "end": "badEnding"
   },
 
-  "swim": {
-    "text": "██████ 小川を渡る ██████\n\n無事に森を脱出し、村に到着した。",
+  "caveEscape": {
+    "text": "██████ 逃走 ██████\n\nなんとか洞窟から脱出できた。",
     "choices": [
-      { "label": "村に入る", "next": "village" },
-      { "label": "森を迂回する", "next": "forestLoop" }
+      { "label": "森に戻る", "next": "forestClearing" }
     ]
   },
-  "bridge": {
-    "text": "██████ 崩れた橋 ██████\n\n橋は崩れ、進めない。森に戻るしかない。",
-    "choices": [
-      { "label": "森に戻る", "next": "start" }
-    ]
-  },
-  "forestLoop": {
-    "text": "██████ 森の迷路 ██████\n\n迷っているうちに夜になった。\n安全な場所を探すか？",
-    "choices": [
-      { "label": "木の下で休む", "next": "badEnding" },
-      { "label": "何とか森を抜ける", "next": "village" }
-    ]
-  },
-  "village": {
-    "text": "██████ 村 ██████\n\n村人たちに出会った。\n城に向かう準備をするか？",
-    "choices": [
-      { "label": "城へ向かう", "next": "castle" },
-      { "label": "村に留まる", "next": "goodEnding" }
-    ]
-  },
-  "castle": {
-    "text": "██████ 城 ██████\n\n城に到着。勇者として認められた！",
-    "end": "victoryEnding"
-  },
-  "goodEnding": {
-    "text": "██████ 平和な村 ██████\n\n村で静かに暮らすことにした。",
-    "end": "goodEnding"
-  },
-  "badEnding": {
-    "text": "██████ 森の夜 ██████\n\n森の夜は危険だった。残念ながら冒険はここで終わり。",
-    "end": "badEnding"
-  },
+
+  // ────────── エンディング例 ──────────
   "treasureEnding": {
-    "text": "██████ 宝箱発見 ██████\n\nゴブリンを倒し、宝箱を手に入れた！",
+    "text": "██████ 宝箱発見 ██████\n\n冒険は成功！",
     "end": "treasureEnding"
   },
-  "victoryEnding": {
-    "text": "██████ 勝利 ██████\n\n見事、城に到達し冒険は大成功！",
-    "end": "victoryEnding"
+
+  "badEnding": {
+    "text": "██████ 森の夜 ██████\n\n残念、冒険は失敗。",
+    "end": "badEnding"
   }
 }
