@@ -1,4 +1,3 @@
-// logger.js
 export function log(msg, logEl) {
   const t = new Date().toLocaleTimeString();
   const line = document.createElement("div");
@@ -8,22 +7,14 @@ export function log(msg, logEl) {
   timeSpan.textContent = `[${t}] `;
 
   const msgSpan = document.createElement("span");
-
-  // 成功・失敗の判定
-  if (msg.startsWith("✅")) {
-    msgSpan.className = "log-success";
-  } else if (msg.startsWith("❌")) {
-    msgSpan.className = "log-fail";
-  }
-
-  // リレー名だけ青くする
-  msgSpan.innerHTML = msg.replace(/(wss:\/\/[^\s]+)/g, `<span class="log-relay">$1</span>`);
+  msgSpan.innerHTML = msg;
 
   line.appendChild(timeSpan);
   line.appendChild(msgSpan);
-  logEl.appendChild(line);
 
-  // 最新ログが上に来る場合のスクロール
+  // 新しい行を先頭に追加
+  logEl.prepend(line);
+
+  // 先頭にスクロール
   logEl.scrollTop = 0;
 }
-
