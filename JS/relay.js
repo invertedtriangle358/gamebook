@@ -5,7 +5,6 @@ const { relayInit } = window.NostrTools;
 let relays = []; // 接続済みリレーオブジェクト格納
 const relayUrls = [
   "wss://relay.damus.io",
-  "wss://relay-jp.nostr.wirednet.jp",
   "wss://yabu.me",
   "wss://r.kojira.io",
   "wss://relay.barine.co"
