@@ -1,33 +1,67 @@
 {
   "start": {
-    "text": "あなたは森の中にいる。進みますか？",
+    "text": "██████ 森の入口 ██████\n\n暗い森の入口に立っている。\n左右どちらの道を進む？",
     "choices": [
-      { "label": "進む", "next": "forest" },
-      { "label": "とどまる", "next": "end_bad" }
+      { "label": "左の道", "next": "leftPath" },
+      { "label": "右の道", "next": "rightPath" }
     ]
   },
-  "forest": {
-    "text": "出口を見つけた！ハッピーエンド！",
-    "end": "good"
+  "leftPath": {
+    "text": "██████ 左の道 ██████\n\n小川が見えた。泳ぐか橋を探すか？",
+    "choices": [
+      { "label": "泳いで渡る", "next": "swim" },
+      { "label": "橋を探す", "next": "bridge" }
+    ]
   },
-  "end_bad": {
-    "text": "森を出られない…バッドエンド。",
-    "end": "bad"
+  "rightPath": {
+    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ。出口は見つからない…",
+    "end": "caveEnding"
   },
-  "endings": {
-    "good": {
-      "title": "出口を見つけた！ハッピーエンド！",
-      "description": "森を抜けて出口にたどり着いた。",
-      "tags": [
-        ["ending", "good"]
-      ]
-    },
-    "bad": {
-      "title": "森を出られない…バッドエンド。",
-      "description": "迷ってしまったままだ。",
-      "tags": [
-        ["ending", "bad"]
-      ]
-    }
+  "swim": {
+    "text": "██████ 小川を渡る ██████\n\n無事に森を脱出し、村に到着した。",
+    "choices": [
+      { "label": "村に入る", "next": "village" },
+      { "label": "森を迂回する", "next": "forestLoop" }
+    ]
+  },
+  "bridge": {
+    "text": "██████ 崩れた橋 ██████\n\n橋は崩れ、進めない。森に戻るしかない。",
+    "choices": [
+      { "label": "森に戻る", "next": "start" }
+    ]
+  },
+  "forestLoop": {
+    "text": "██████ 森の迷路 ██████\n\n迷っているうちに夜になった。\n安全な場所を探すか？",
+    "choices": [
+      { "label": "木の下で休む", "next": "badEnding" },
+      { "label": "何とか森を抜ける", "next": "village" }
+    ]
+  },
+  "village": {
+    "text": "██████ 村 ██████\n\n村人たちに出会った。\n城に向かう準備をするか？",
+    "choices": [
+      { "label": "城へ向かう", "next": "castle" },
+      { "label": "村に留まる", "next": "goodEnding" }
+    ]
+  },
+  "castle": {
+    "text": "██████ 城 ██████\n\n城に到着。勇者として認められた！",
+    "end": "victoryEnding"
+  },
+  "goodEnding": {
+    "text": "██████ 平和な村 ██████\n\n村で静かに暮らすことにした。",
+    "end": "goodEnding"
+  },
+  "badEnding": {
+    "text": "██████ 森の夜 ██████\n\n森の夜は危険だった。残念ながら冒険はここで終わり。",
+    "end": "badEnding"
+  },
+  "caveEnding": {
+    "text": "██████ 洞窟 ██████\n\n洞窟から出られず、冒険はここで終わり。",
+    "end": "caveEnding"
+  },
+  "victoryEnding": {
+    "text": "██████ 勝利 ██████\n\n見事、城に到達し冒険は大成功！",
+    "end": "victoryEnding"
   }
 }
