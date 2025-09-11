@@ -34,7 +34,8 @@ body {
 #log {
   flex: 0.5;
   background: #111;
-  padding: 16px;                     /* 内側の余白 */
+  padding: 10px; /* 内側の余白 */
+  margin: 2px;
   border: 2px solid #0f0;            /* 緑の枠線 */
   border-radius: 8px;
   overflow-y: auto;
@@ -45,6 +46,12 @@ body {
   flex-direction: column-reverse; /* 新しい要素を上に積む */
   gap: 4px;
 }
+
+#log div {
+  margin: 0;           /* 行間の余白を削除 */
+  padding: 2px 0;      /* 必要なら少しだけ上下に余白 */
+}
+
 .log-time {
   color: #fff;   /* 時刻は白 */
   margin-right: 4px;
