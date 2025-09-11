@@ -1,4 +1,5 @@
-function log(msg, logEl) {
+// logger.js
+export function log(msg, logEl) {
   const t = new Date().toLocaleTimeString();
   const line = document.createElement("div");
 
@@ -25,3 +26,4 @@ function log(msg, logEl) {
   // 最新ログが上に来る場合のスクロール
   logEl.scrollTop = 0;
 }
+
