@@ -1,6 +1,6 @@
 import { loadScenario, showScene } from "./scenario.js";
 import { connectRelays, loadMyLogs } from "./relay.js";
-import { log } from "./logger.js";
+import { log } from "./JS/logger.js";
 
 let textEl, choicesEl, logEl;
 
