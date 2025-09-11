@@ -1,6 +1,11 @@
-// --- ログ出力ユーティリティ ---
-export function log(msg, logEl) {
-  if (!logEl) return;
+function log(msg, logEl) {
   const t = new Date().toLocaleTimeString();
-  logEl.innerText += `[${t}] ${msg}\n`;
+  const line = document.createElement("div");
+  line.textContent = `[${t}] ${msg}`;
+
+  logEl.appendChild(line);
+
+  // 自動スクロール（最新ログが上なので scrollTop を 0 に）
+  logEl.scrollTop = 0;
 }
+
