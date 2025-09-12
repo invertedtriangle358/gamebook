@@ -66,7 +66,8 @@ async function startGame() {
   showTitle();
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
-  await startGame();
-  loadMyLogs(logEl);
-});
+ window.addEventListener("DOMContentLoaded", async () => {
+   await startGame();
+   loadMyLogs(logEl);
+ });
+}
