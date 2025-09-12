@@ -1,3 +1,7 @@
+export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding) {
+  // …シーン表示処理…
+}
+
 import { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js";
 
