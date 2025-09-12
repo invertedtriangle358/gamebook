@@ -4,11 +4,7 @@ import { log } from "./logger.js";
 
 let textEl, choicesEl, logEl, scenario;
 
-// =============================
-// エンディング管理
-// =============================
-
-// 保存
+// --- エンディング保存 ---
 function unlockEnding(endingId) {
   const endings = JSON.parse(localStorage.getItem("endings") || "[]");
   if (!endings.includes(endingId)) {
@@ -18,7 +14,7 @@ function unlockEnding(endingId) {
   }
 }
 
-// 一覧表示
+// --- エンディング一覧 ---
 function showEndingList() {
   textEl.innerText = "エンディング一覧";
   choicesEl.innerHTML = "";
@@ -37,23 +33,19 @@ function showEndingList() {
   addButton("タイトルに戻る", showTitle);
 }
 
-// =============================
-// タイトル画面
-// =============================
+// --- タイトル画面 ---
 function showTitle() {
   textEl.innerText = "Nostrゲームブック";
   choicesEl.innerHTML = "";
 
   addButton("ゲームスタート", () =>
-    showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding)
+    showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding, showTitle)
   );
 
   addButton("エンディング一覧", showEndingList);
 }
 
-// =============================
-// 共通：ボタン生成ヘルパー
-// =============================
+// --- 共通ボタン生成 ---
 function addButton(label, onClick) {
   const btn = document.createElement("button");
   btn.innerText = label;
@@ -62,9 +54,7 @@ function addButton(label, onClick) {
   choicesEl.appendChild(btn);
 }
 
-// =============================
-// ゲーム開始処理
-// =============================
+// --- ゲーム開始 ---
 async function startGame() {
   textEl = document.getElementById("text");
   choicesEl = document.getElementById("choices");
@@ -73,7 +63,7 @@ async function startGame() {
   await connectRelays(logEl);
   scenario = await loadScenario(logEl);
 
-  showTitle(); // ← タイトル画面から開始
+  showTitle();
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
