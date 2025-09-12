@@ -4,63 +4,67 @@ import { log } from "./logger.js";
 
 let textEl, choicesEl, logEl, scenario;
 
-// --- エンディング記録 ---
+// =============================
+// エンディング管理
+// =============================
+
+// 保存
 function unlockEnding(endingId) {
-  let endings = JSON.parse(localStorage.getItem("endings") || "[]");
+  const endings = JSON.parse(localStorage.getItem("endings") || "[]");
   if (!endings.includes(endingId)) {
     endings.push(endingId);
     localStorage.setItem("endings", JSON.stringify(endings));
+    log(`⭐ 新しいエンディングを発見: ${endingId}`, logEl);
   }
 }
 
-// --- エンディング一覧表示 ---
+// 一覧表示
 function showEndingList() {
   textEl.innerText = "エンディング一覧";
   choicesEl.innerHTML = "";
 
-  let endings = JSON.parse(localStorage.getItem("endings") || "[]");
-
-  // scenarioからendを収集
+  const unlocked = JSON.parse(localStorage.getItem("endings") || "[]");
   const allEndings = Object.values(scenario)
     .filter(s => s.end)
     .map(s => s.end);
 
   allEndings.forEach(endId => {
     const div = document.createElement("div");
-    if (endings.includes(endId)) {
-      div.innerText = `✅ ${endId}`;
-    } else {
-      div.innerText = "❌ ???";
-    }
+    div.innerText = unlocked.includes(endId) ? `✅ ${endId}` : "❌ ???";
     choicesEl.appendChild(div);
   });
 
-  const backBtn = document.createElement("button");
-  backBtn.innerText = "タイトルに戻る";
-  backBtn.className = "choice";
-  backBtn.onclick = showTitle;
-  choicesEl.appendChild(backBtn);
+  addButton("タイトルに戻る", showTitle);
 }
 
-// --- タイトル画面 ---
+// =============================
+// タイトル画面
+// =============================
 function showTitle() {
   textEl.innerText = "Nostrゲームブック";
   choicesEl.innerHTML = "";
 
-  const startBtn = document.createElement("button");
-  startBtn.innerText = "ゲームスタート";
-  startBtn.className = "choice";
-  startBtn.onclick = () => showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding);
-  choicesEl.appendChild(startBtn);
+  addButton("ゲームスタート", () =>
+    showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding)
+  );
 
-  const endingBtn = document.createElement("button");
-  endingBtn.innerText = "エンディング一覧";
-  endingBtn.className = "choice";
-  endingBtn.onclick = showEndingList;
-  choicesEl.appendChild(endingBtn);
+  addButton("エンディング一覧", showEndingList);
 }
 
-// --- ゲーム開始処理 ---
+// =============================
+// 共通：ボタン生成ヘルパー
+// =============================
+function addButton(label, onClick) {
+  const btn = document.createElement("button");
+  btn.innerText = label;
+  btn.className = "choice";
+  btn.onclick = onClick;
+  choicesEl.appendChild(btn);
+}
+
+// =============================
+// ゲーム開始処理
+// =============================
 async function startGame() {
   textEl = document.getElementById("text");
   choicesEl = document.getElementById("choices");
@@ -69,7 +73,7 @@ async function startGame() {
   await connectRelays(logEl);
   scenario = await loadScenario(logEl);
 
-  showTitle(); // ←最初はタイトル画面を表示
+  showTitle(); // ← タイトル画面から開始
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
