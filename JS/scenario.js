@@ -1,7 +1,6 @@
-import { log } from "./logger.js";
+import { loimport { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js";
 
-// シナリオを保持する変数
 let scenario = {};
 
 // --- シナリオ読み込み ---
@@ -10,7 +9,7 @@ export async function loadScenario(logEl) {
     const res = await fetch("./scenario.json");
     scenario = await res.json();
     log("シナリオ読み込み完了", logEl);
-    return scenario; // ← main.js で使えるように return
+    return scenario;
   } catch (e) {
     log("シナリオ読み込み失敗: " + e.message, logEl);
     return {};
@@ -18,7 +17,7 @@ export async function loadScenario(logEl) {
 }
 
 // --- シーン描画 ---
-export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding) {
+export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle) {
   const scene = scenario[id];
   if (!scene) {
     log("不明なシーン: " + id, logEl);
@@ -32,21 +31,20 @@ export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding) 
     const endChoices = document.createElement("div");
     endChoices.className = "end-choices";
 
-    // 「結果を送信」ボタン
+    // 「結果を送信」
     const sendBtn = document.createElement("button");
     sendBtn.innerText = "結果を送信";
     sendBtn.className = "choice";
     sendBtn.onclick = () => {
       sendResultSimple(scene.end, logEl);
-      unlockEnding(scene.end); // ← エンディング保存
+      unlockEnding(scene.end);
     };
 
-    // 「タイトルに戻る」ボタン
+    // 「タイトルに戻る」
     const restartBtn = document.createElement("button");
     restartBtn.innerText = "タイトルに戻る";
     restartBtn.className = "choice";
-    restartBtn.onclick = () =>
-      showTitle(textEl, choicesEl, logEl, scenario, unlockEnding);
+    restartBtn.onclick = () => showTitle();
 
     endChoices.appendChild(sendBtn);
     endChoices.appendChild(restartBtn);
@@ -60,7 +58,7 @@ export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding) 
     btn.innerText = choice.label;
     btn.className = "choice";
     btn.onclick = () =>
-      showScene(choice.next, textEl, choicesEl, logEl, scenario, unlockEnding);
+      showScene(choice.next, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle);
     choicesEl.appendChild(btn);
   });
 }
