@@ -17,7 +17,6 @@ export async function loadScenario(logEl) {
 }
 
 // --- シーン描画 ---
-// --- シーン描画 ---
 export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle) {
   console.log("showScene呼び出し: ", id); // ← ここに入れる
 
@@ -45,3 +44,4 @@ export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, 
 
     // 「タイトルに戻る」
     const restartBtn = document.createEl
+};
