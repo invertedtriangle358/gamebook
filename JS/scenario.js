@@ -43,5 +43,24 @@ export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, 
     };
 
     // 「タイトルに戻る」
-    const restartBtn = document.createEl
-};
+    const restartBtn = document.createElement("button");
+    restartBtn.innerText = "タイトルに戻る";
+    restartBtn.className = "choice";
+    restartBtn.onclick = () => showTitle();
+
+    endChoices.appendChild(sendBtn);
+    endChoices.appendChild(restartBtn);
+    choicesEl.appendChild(endChoices);
+    return;
+  }
+
+  // 通常の選択肢
+  scene.choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.innerText = choice.label;
+    btn.className = "choice";
+    btn.onclick = () =>
+      showScene(choice.next, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle);
+    choicesEl.appendChild(btn);
+  });
+}
