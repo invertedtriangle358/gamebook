@@ -30,57 +30,56 @@ body {
 }
 
 /* 左カラム：ログ */
-/* 左カラム：ログ */
 #log {
   flex: 0.5;
   background: #111;
-  padding: 10px; /* 内側の余白 */
+  padding: 10px;
   margin: 2px;
-  border: 2px solid #0f0;            /* 緑の枠線 */
+  border: 2px solid #0f0;
   border-radius: 8px;
   overflow-y: auto;
   max-height: 80vh;
   font-size: 0.85em;
-  box-shadow: 0 0 6px #0f0 inset;    /* 少し内側に光る感じ */
+  box-shadow: 0 0 6px #0f0 inset;
   display: flex;
   flex-direction: column-reverse; /* 新しい要素を上に積む */
   gap: 4px;
 }
 
 #log div {
-  margin: 0;           /* 行間の余白を削除 */
-  padding: 2px 0;      /* 必要なら少しだけ上下に余白 */
+  margin: 0;
+  padding: 2px 0;
 }
 
 .log-time {
-  color: #fff;   /* 時刻は白 */
+  color: #fff;
   margin-right: 4px;
   font-weight: bold;
 }
 
 .log-relay {
-  color: #0af;   /* リレー名は青 */
+  color: #0af;
   font-weight: bold;
 }
 
 .log-success {
-  color: #0f0;   /* 成功は緑 */
+  color: #0f0;
 }
 
 .log-fail {
-  color: #f33;   /* 失敗は赤 */
+  color: #f33;
 }
 
 /* ゲームスタートボタン */
 #startBtn {
   display: block;
-  margin: 50px auto;       /* 上下中央寄せ */
-  padding: 15px 40px;      /* ボタン内余白 */
-  font-size: 1.2em;        /* 少し大きめ */
-  font-family: "Courier New", monospace; /* レトロ風 */
+  margin: 50px auto;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  font-family: "Courier New", monospace;
   color: #fff;
-  background-color: #444;  /* 暗めで目に優しい */
-  border: 2px solid #888;  /* レトロ風枠 */
+  background-color: #444;
+  border: 2px solid #888;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
@@ -96,25 +95,38 @@ body {
 #game {
   flex: 2;
   background: #111;
-  padding: 16px;                     /* 内側の余白 */
-  border: 2px solid #0f0;            /* 緑の枠線 */
+  padding: 16px;
+  border: 2px solid #0f0;
   border-radius: 8px;
   min-width: 400px;
-  box-shadow: 0 0 6px #0f0 inset;    /* 内側に光を入れる */
+  box-shadow: 0 0 6px #0f0 inset;
 }
 
+/* 本文エリア */
+#text {
+  white-space: pre-line; /* JSONの改行を反映 */
+  margin: 1em 0;
+  font-size: 1.2em;
+}
 
-/* --- 選択肢ボタン --- */
+/* 選択肢ボタン */
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
 .choice {
   display: block;
   margin: 10px 0;
   padding: 15px;
-  width: 120px;
+  width: 160px;
   background: #055;
   border-radius: 8px;
   cursor: pointer;
   color: #0f0;
   border: 2px solid #0f0;
+  text-align: center;
 }
 
 .choice:hover {
