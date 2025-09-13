@@ -1,6 +1,3 @@
-console.log("showScene呼び出し: ", id);
-
-
 import { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js";
 
@@ -20,7 +17,10 @@ export async function loadScenario(logEl) {
 }
 
 // --- シーン描画 ---
+// --- シーン描画 ---
 export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle) {
+  console.log("showScene呼び出し: ", id); // ← ここに入れる
+
   const scene = scenario[id];
   if (!scene) {
     log("不明なシーン: " + id, logEl);
@@ -44,24 +44,4 @@ export function showScene(id, textEl, choicesEl, logEl, scenario, unlockEnding, 
     };
 
     // 「タイトルに戻る」
-    const restartBtn = document.createElement("button");
-    restartBtn.innerText = "タイトルに戻る";
-    restartBtn.className = "choice";
-    restartBtn.onclick = () => showTitle();
-
-    endChoices.appendChild(sendBtn);
-    endChoices.appendChild(restartBtn);
-    choicesEl.appendChild(endChoices);
-    return;
-  }
-
-  // 通常の選択肢
-  scene.choices.forEach(choice => {
-    const btn = document.createElement("button");
-    btn.innerText = choice.label;
-    btn.className = "choice";
-    btn.onclick = () =>
-      showScene(choice.next, textEl, choicesEl, logEl, scenario, unlockEnding, showTitle);
-    choicesEl.appendChild(btn);
-  });
-}
+    const restartBtn = document.createEl
