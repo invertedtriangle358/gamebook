@@ -70,4 +70,3 @@ async function startGame() {
    await startGame();
    loadMyLogs(logEl);
  });
-}
