@@ -31,7 +31,7 @@ body {
 
 /* 左カラム：ログ */
 #log {
-  flex: 0.5;
+  flex: 550px;
   background: #111;
   padding: 8px;         /* 少し余裕を減らす */
   margin: 2px;
