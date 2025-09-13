@@ -1,3 +1,6 @@
+console.log("showScene呼び出し: ", id);
+
+
 import { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js";
 
