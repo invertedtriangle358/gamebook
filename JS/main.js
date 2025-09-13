@@ -38,9 +38,9 @@ function showTitle() {
   textEl.innerText = "Nostrゲームブック";
   choicesEl.innerHTML = "";
 
-  addButton("ゲームスタート", () =>
-    showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding, showTitle)
-  );
+addButton("ゲームスタート", () =>
+  showScene("start", textEl, choicesEl, logEl, scenario, unlockEnding, showTitle)
+);
 
   addButton("エンディング一覧", showEndingList);
 }
