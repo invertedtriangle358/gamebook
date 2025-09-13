@@ -15,86 +15,44 @@
     ]
   },
 
-  "swim": {
-    "text": "██████ 川を泳ぐ ██████\n\n無事に渡れた。",
+  "rightPath": {
+    "text": "██████ 右の道 ██████\n\n怪しい物音がする…。",
     "choices": [
-      { "label": "進む", "next": "forestClearing" }
+      { "label": "草むらを調べる", "next": "bush" },
+      { "label": "そのまま進む", "next": "goblin" }
     ]
+  },
+
+  "swim": {
+    "text": "流れが急すぎて溺れてしまった……",
+    "end": "💀 水死エンド：川に呑まれた冒険者 💀"
   },
 
   "bridge": {
-    "text": "██████ 橋を発見 ██████\n\n橋を渡ると小さな広場に出た。",
+    "text": "古びた橋を渡り切った。安全に進めた！",
+    "end": "🌉 橋渡りエンド：安全第一 🌉"
+  },
+
+  "bush": {
+    "text": "草むらの中にひっそりと宝箱が置かれていた！",
+    "end": "🌿 草むら宝箱エンド：偶然の発見 🌿"
+  },
+
+  "goblin": {
+    "text": "ゴブリンが現れた！",
     "choices": [
-      { "label": "探索する", "next": "forestClearing" }
+      { "label": "戦う", "next": "fight" },
+      { "label": "逃げる", "next": "escape" }
     ]
   },
 
-  "forestClearing": {
-    "text": "██████ 森の広場 ██████\n\n光が差し込む静かな場所。宝箱がある。",
-    "choices": [
-      { "label": "宝箱を開ける", "next": "treasure" },
-      { "label": "通り過ぎる", "next": "continuePath" }
-    ]
+  "fight": {
+    "text": "激闘の末、ゴブリンを倒し宝箱を手に入れた！",
+    "end": "⚔️ ゴブリン討伐エンド：勝利の戦利品 ⚔️"
   },
 
-  "treasure": {
-    "text": "██████ 宝箱発見 ██████\n\n中には貴重なアイテムが…",
-    "end": "treasureEnding"
-  },
-
-  "continuePath": {
-    "text": "██████ 森の奥 ██████\n\n暗い小道を進む…",
-    "choices": [
-      { "label": "慎重に進む", "next": "caveEntrance" },
-      { "label": "走って進む", "next": "trap" }
-    ]
-  },
-
-  "trap": {
-    "text": "██████ トラップ ██████\n\n足元の罠にかかってしまった…",
-    "end": "badEnding"
-  },
-
-  "rightPath": {
-    "text": "██████ 右の道 ██████\n\n洞窟に迷い込んだ！ゴブリンが現れた！",
-    "choices": [
-      { "label": "戦う", "next": "battle" },
-      { "label": "逃げる", "next": "caveEscape" }
-    ]
-  },
-
-  "battle": {
-    "text": "██████ 戦闘 ██████\n\nゴブリンと戦った…",
-    "choices": [
-      { "label": "勝利した！", "next": "caveVictory" },
-      { "label": "負けた…", "next": "caveDefeat" }
-    ]
-  },
-
-  "caveVictory": {
-    "text": "██████ ゴブリン撃破 ██████\n\n洞窟の奥で宝箱を発見！",
-    "end": "treasureEnding"
-  },
-
-  "caveDefeat": {
-    "text": "██████ 敗北 ██████\n\nゴブリンに敗北。冒険はここで終了。",
-    "end": "badEnding"
-  },
-
-  "caveEscape": {
-    "text": "██████ 逃走 ██████\n\nなんとか洞窟から脱出できた。",
-    "choices": [
-      { "label": "森に戻る", "next": "forestClearing" }
-    ]
-  },
-
-  "treasureEnding": {
-    "text": "██████ 宝箱発見 ██████\n\n冒険は成功！",
-    "end": "treasureEnding"
-  },
-
-  "badEnding": {
-    "text": "██████ 森の夜 ██████\n\n残念、冒険は失敗。",
-    "end": "badEnding"
+  "escape": {
+    "text": "必死に逃げ出した。なんとか助かった。",
+    "end": "🏃‍♂️ 逃走エンド：命あっての物種 🏃‍♂️"
   }
 }
