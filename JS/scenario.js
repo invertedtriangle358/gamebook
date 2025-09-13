@@ -1,4 +1,4 @@
-import { loimport { log } from "./logger.js";
+import { log } from "./logger.js";
 import { sendResultSimple } from "./relay.js";
 
 let scenario = {};
