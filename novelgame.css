@@ -31,14 +31,14 @@ body {
 
 /* 左カラム：ログ */
 #log {
-  flex: 550px;
+  flex: 5px;
   background: #111;
   padding: 8px;         /* 少し余裕を減らす */
   margin: 2px;
   border: 2px solid #0f0;
   border-radius: 8px;
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: 800vh;
   font-size: 0.85em;
   box-shadow: 0 0 6px #0f0 inset;
   display: flex;
