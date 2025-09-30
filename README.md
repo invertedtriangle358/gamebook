@@ -1,3 +1,3 @@
-# Nostrゲームブック
+# Nostr gamebook vol.0
 
-Gamebook by the Nostr.
+sample.
